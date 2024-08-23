@@ -1,0 +1,9 @@
+﻿namespace {{ProjectName}}.Business.Abstract
+{
+    public interface IUserService
+    {
+        User GetUserById(int userId);
+        void Add(User user);
+        void Update(User user);
+    }
+}

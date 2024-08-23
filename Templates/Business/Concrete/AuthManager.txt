@@ -1,0 +1,37 @@
+﻿using {{ProjectName}}.Business.Abstract;
+using {{ProjectName}}.Entities.Concrete;
+
+namespace {{ProjectName}}.Business.Concrete
+{
+    public class AuthManager : IAuthService
+    {
+        public void Login(string username, string password)
+        {
+            // Giriş yapma işlemleri
+        }
+
+        public void Register(User user)
+        {
+            // Kayıt olma işlemleri
+        }
+    }
+
+    public class UserManager : IUserService
+    {
+        public User GetUserById(int userId)
+        {
+            // Kullanıcı bilgilerini getir
+            return new User();
+        }
+
+        public void Add(User user)
+        {
+            // Kullanıcı ekleme işlemleri
+        }
+
+        public void Update(User user)
+        {
+            // Kullanıcı güncelleme işlemleri
+        }
+    }
+}

@@ -1,0 +1,8 @@
+﻿namespace {{ProjectName}}.Business.Abstract
+{
+    public interface IAuthService
+    {
+        void Login(string username, string password);
+        void Register(User user);
+    }
+}

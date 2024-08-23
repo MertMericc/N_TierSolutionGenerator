@@ -1,0 +1,10 @@
+﻿using System.Collections.Generic;
+using {{ProjectName}}.Core.Entities.Concrete;
+
+namespace {{ProjectName}}.Core.Utilities.Security.Jwt
+{
+    public interface ITokenHelper
+    {
+        AccessToken CreateToken(User user, List<OperationClaim> operationClaims);
+    }
+}

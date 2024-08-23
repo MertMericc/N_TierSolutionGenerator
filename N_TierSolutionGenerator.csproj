@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{2007900C-247F-4B55-89E3-2B8A70DAA1B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>N_TierSolutionGenerator</RootNamespace>
+    <AssemblyName>N_TierSolutionGenerator</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <UseCodebase>true</UseCodebase>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Models\ProjectInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commands\MyCommand.cs" />
+    <Compile Include="N_TierSolutionGeneratorPackage.cs" />
+    <Compile Include="Services\BusinessFolderService.cs" />
+    <Compile Include="Services\CoreFolderService.cs" />
+    <Compile Include="Services\DataAccessFolderService.cs" />
+    <Compile Include="Services\EntityFolderService.cs" />
+    <Compile Include="Services\FileCreationService.cs" />
+    <Compile Include="Services\MvcFileCreationService.cs" />
+    <Compile Include="Services\ProjectCreationService.cs" />
+    <Compile Include="Services\SharedFileCreationService.cs" />
+    <Compile Include="Services\WebApiFileCreationService.cs" />
+    <Compile Include="source.extension.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </Compile>
+    <Compile Include="VSCommandTable.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VSCommandTable.vsct</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\Business\Concrete\AuthManager.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Business\DependencyResolvers\AutofacBusinessModule.txt" />
+    <Content Include="Templates\Business\Abstract\IAuthService.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Business\Abstract\IUserService.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Business\Constants\Messages.txt" />
+    <Content Include="Templates\Business\ValidationRules\ProductValidator.txt" />
+    <Content Include="Templates\Business\BusinessAspects\SecuredOperation.txt" />
+    <Content Include="Templates\Business\Concrete\UserManager.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Core\Aspects\Autofac\Caching\CacheAspect.txt" />
+    <Content Include="Templates\Core\Aspects\Autofac\Caching\CacheRemoveAspect.txt" />
+    <Content Include="Templates\Core\Aspects\Autofac\Exception\ExceptionLogAspect.txt" />
+    <Content Include="Templates\Core\Aspects\Autofac\Logging\LogAspect.txt" />
+    <Content Include="Templates\Core\Aspects\Autofac\Performance\PerformanceAspect.txt" />
+    <Content Include="Templates\Core\Aspects\Autofac\Transaction\TransactionScopeAspect.txt" />
+    <Content Include="Templates\Core\Aspects\Autofac\Validation\ValidationAspect.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Caching\ICacheManager.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Caching\Microsoft\MemoryCacheManager.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\Log4Net\Layouts\JsonLayout.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\Log4Net\Loggers\DatabaseLogger.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\Log4Net\Loggers\FileLogger.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\Log4Net\SerializableLogEvent.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\LogDetail.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\Log4Net\LoggerServiceBase.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\LogDetailWithException.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Logging\LogParameter.txt" />
+    <Content Include="Templates\Core\CrossCuttingConcerns\Validation\ValidationTool.txt" />
+    <Content Include="Templates\Core\DataAccess\EntityFramework\EfEntityRepositoryBase.txt" />
+    <Content Include="Templates\Core\DataAccess\IEntityRepository.txt" />
+    <Content Include="Templates\Core\DependencyResolvers\CoreModule.txt" />
+    <Content Include="Templates\Core\Entities\IDto.txt" />
+    <Content Include="Templates\Core\Entities\IEntity.txt" />
+    <Content Include="Templates\Core\Entities\Concrete\User.txt" />
+    <Content Include="Templates\Core\Extensions\ClaimExtensions.txt" />
+    <Content Include="Templates\Core\Extensions\ClaimsPrincipalExtensions.txt" />
+    <Content Include="Templates\Core\Extensions\ErrorDetails.txt" />
+    <Content Include="Templates\Core\Extensions\ExceptionMiddleware.txt" />
+    <Content Include="Templates\Core\Extensions\ExceptionMiddlewareExtensions.txt" />
+    <Content Include="Templates\Core\Extensions\ServiceCollectionExtensions.txt" />
+    <Content Include="Templates\Core\Utilities\Business\BusinessRules.txt" />
+    <Content Include="Templates\Core\Utilities\Interceptors\AspectInterceptorSelector.txt" />
+    <Content Include="Templates\Core\Utilities\Interceptors\MethodInterception.txt" />
+    <Content Include="Templates\Core\Utilities\Interceptors\MethodInterceptionBaseAttribute.txt" />
+    <Content Include="Templates\Core\Utilities\IoC\ICoreModule.txt" />
+    <Content Include="Templates\Core\Utilities\IoC\ServiceTool.txt" />
+    <Content Include="Templates\Core\Utilities\Messages\AspectMessages.txt" />
+    <Content Include="Templates\Core\Utilities\Results\DataResult.txt" />
+    <Content Include="Templates\Core\Utilities\Results\ErrorDataResult.txt" />
+    <Content Include="Templates\Core\Utilities\Results\ErrorResult.txt" />
+    <Content Include="Templates\Core\Utilities\Results\IDataResult.txt" />
+    <Content Include="Templates\Core\Utilities\Results\IResult.txt" />
+    <Content Include="Templates\Core\Utilities\Results\Result.txt" />
+    <Content Include="Templates\Core\Utilities\Results\SuccessDataResult.txt" />
+    <Content Include="Templates\Core\Utilities\Results\SuccessResult.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Encryption\SecurityKeyHelper.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Encryption\SigningCredentialsHelper.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Hashing\HashingHelper.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Jwt\AccessToken.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Jwt\ITokenHelper.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Jwt\JwtHelper.txt" />
+    <Content Include="Templates\Core\Utilities\Security\Jwt\TokenOptions.txt" />
+    <Content Include="Templates\DataAccess\Abstract\IUserDal.txt" />
+    <Content Include="Templates\Core\Entities\Concrete\OperationClaim.txt" />
+    <Content Include="Templates\Core\Entities\Concrete\UserOperationClaim.txt" />
+    <Content Include="Templates\DataAccess\Concrete\EntityFramework\Contexts\NorthwindContext.txt" />
+    <Content Include="Templates\DataAccess\Concrete\EntityFramework\EfUserDal.txt" />
+    <Content Include="Templates\Entity\Dtos\UserForLoginDto.txt" />
+    <Content Include="Templates\Entity\Dtos\UserForRegisterDto.txt" />
+    <Content Include="Templates\WebAPI\Controllers\AuthController.txt" />
+    <Content Include="Templates\WebAPI\Middlewares\ExceptionMiddleware.txt" />
+    <Content Include="Templates\WebAPI\Program.txt" />
+    <Content Include="Templates\WebAPI\Services\TokenService.txt" />
+    <Content Include="Templates\Web\Controllers\HomeController.txt" />
+    <Content Include="Templates\Web\Program.txt" />
+    <Content Include="Templates\Web\Views\Home\Index.cshtml.txt" />
+    <Content Include="Templates\Web\Views\Shared\_Layout.cshtml.txt" />
+    <Content Include="Templates\Web\Views\_ViewStart.cshtml.txt" />
+    <Content Include="Templates\Web\wwwroot\site.css.txt" />
+    <Content Include="Monikers.imagemanifest">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+      <Generator>VsixManifestGenerator</Generator>
+      <LastGenOutput>source.extension.cs</LastGenOutput>
+    </None>
+    <Content Include="Resources\Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Templates\WebAPI\appsettings.json.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <VSCTCompile Include="VSCommandTable.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>VSCommandTable.cs</LastGenOutput>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.ComponentModel.Composition" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Community.VisualStudio.VSCT" Version="16.0.29.6" PrivateAssets="all" />
+    <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.451" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\Entity\Concrete\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

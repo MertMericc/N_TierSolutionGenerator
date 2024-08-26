@@ -1,6 +1,6 @@
-﻿using {{ProjectName}}Core.Entities;
+﻿using {{ProjectName}}.Core.Entities;
 
-namespace {{ProjectName}}Entities.Dtos
+namespace {{ProjectName}}.Entities.Dtos
 {
     public class UserForRegisterDto : IDto
     {

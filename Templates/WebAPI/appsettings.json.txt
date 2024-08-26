@@ -1,1 +1,18 @@
-﻿
+﻿{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=true;"
+  },
+  "TokenOptions": {
+    "Audience": "yourAudience",
+    "Issuer": "yourIssuer",
+    "AccessTokenExpiration": 10,
+    "SecurityKey": "yourSuperSecretKey"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

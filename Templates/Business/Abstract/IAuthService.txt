@@ -1,8 +1,15 @@
-﻿namespace {{ProjectName}}.Business.Abstract
+﻿using {{ProjectName}}.Core.Entities.Concrete;
+using {{ProjectName}}.Core.Utilities.Results;
+using {{ProjectName}}.Core.Utilities.Security.Jwt;
+using {{ProjectName}}.Entities.Dtos;
+
+namespace {{ProjectName}}.Business.Abstract
 {
     public interface IAuthService
     {
-        void Login(string username, string password);
-        void Register(User user);
+        IDataResult<User> Register(UserForRegisterDto userForRegisterDto,string password);
+        IDataResult<User> Login(UserForLoginDto userForLoginDto);
+        IResult UserExists(string email);
+        IDataResult<AccessToken> CreateAccessToken(User user);
     }
 }

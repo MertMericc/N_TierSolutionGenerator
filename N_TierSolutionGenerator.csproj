@@ -143,12 +143,11 @@
     <Content Include="Templates\Core\Entities\Concrete\UserOperationClaim.txt" />
     <Content Include="Templates\DataAccess\Concrete\EntityFramework\Contexts\NorthwindContext.txt" />
     <Content Include="Templates\DataAccess\Concrete\EntityFramework\EfUserDal.txt" />
+    <Content Include="Templates\Entity\Concrete\Test.txt" />
     <Content Include="Templates\Entity\Dtos\UserForLoginDto.txt" />
     <Content Include="Templates\Entity\Dtos\UserForRegisterDto.txt" />
     <Content Include="Templates\WebAPI\Controllers\AuthController.txt" />
-    <Content Include="Templates\WebAPI\Middlewares\ExceptionMiddleware.txt" />
     <Content Include="Templates\WebAPI\Program.txt" />
-    <Content Include="Templates\WebAPI\Services\TokenService.txt" />
     <Content Include="Templates\Web\Controllers\HomeController.txt" />
     <Content Include="Templates\Web\Program.txt" />
     <Content Include="Templates\Web\Views\Home\Index.cshtml.txt" />
@@ -186,9 +185,7 @@
     <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.451" ExcludeAssets="Runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Templates\Entity\Concrete\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

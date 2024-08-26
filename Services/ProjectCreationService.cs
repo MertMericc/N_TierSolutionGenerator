@@ -12,19 +12,21 @@ namespace N_TierSolutionGenerator.Services
         private readonly CoreFolderService _coreFolderService;
         private readonly DataAccessFolderService _dataAccessFolderService;
         private readonly EntityFolderService _entityFolderService;
+        private readonly WebApiFileCreationService _webApiFileCreationService;
 
-        // Yapıcı metot dört parametre alacak şekilde genişletildi
         public ProjectCreationService(
             BusinessFolderService businessFolderService,
             CoreFolderService coreFolderService,
             DataAccessFolderService dataAccessFolderService,
-            EntityFolderService entityFolderService)
+            EntityFolderService entityFolderService,
+            WebApiFileCreationService webApiFileCreationService)
         {
             _fileCreationService = new FileCreationService();
             _businessFolderService = businessFolderService;
             _coreFolderService = coreFolderService;
             _dataAccessFolderService = dataAccessFolderService;
             _entityFolderService = entityFolderService;
+            _webApiFileCreationService = webApiFileCreationService;
         }
 
         public void CreateN_TierProjects(ProjectInfo projectInfo)
@@ -40,6 +42,96 @@ namespace N_TierSolutionGenerator.Services
                 Directory.CreateDirectory(projectDir);
 
                 CreateProject(projectInfo.DTE, projectDir, $"{projectInfo.SolutionName}.{layer}", layer, solutionName);
+            }
+
+            // Projeler arası referansları ekleyin
+            AddProjectReferences(projectInfo);
+        }
+        private void AddProjectReferences(ProjectInfo projectInfo)
+        {
+            var dte = projectInfo.DTE;
+            var solution = dte.Solution;
+
+            // Tüm projeleri alıyoruz
+            var businessProject = GetProjectByName(solution, $"{projectInfo.SolutionName}.Business");
+            var dataAccessProject = GetProjectByName(solution, $"{projectInfo.SolutionName}.DataAccess");
+            var coreProject = GetProjectByName(solution, $"{projectInfo.SolutionName}.Core");
+            var entityProject = GetProjectByName(solution, $"{projectInfo.SolutionName}.Entity");
+            var webApiProject = GetProjectByName(solution, $"{projectInfo.SolutionName}.WebAPI");
+
+            // Entity katmanının Core katmanını referans alması
+            if (entityProject != null && coreProject != null)
+            {
+                AddReference(entityProject, coreProject);
+            }
+
+            // Diğer projeler arası referanslar
+            if (webApiProject != null && businessProject != null)
+            {
+                AddReference(webApiProject, businessProject);
+            }
+
+            if (webApiProject != null && coreProject != null)
+            {
+                AddReference(webApiProject, coreProject);
+            }
+
+            if (webApiProject != null && entityProject != null)
+            {
+                AddReference(webApiProject, entityProject);
+            }
+
+            if (businessProject != null && coreProject != null)
+            {
+                AddReference(businessProject, coreProject);
+            }
+
+            if (businessProject != null && dataAccessProject != null)
+            {
+                AddReference(businessProject, dataAccessProject);
+            }
+
+            if (dataAccessProject != null && coreProject != null)
+            {
+                AddReference(dataAccessProject, coreProject);
+            }
+
+            if (businessProject != null && entityProject != null)
+            {
+                AddReference(businessProject, entityProject);
+            }
+
+            if (dataAccessProject != null && entityProject != null)
+            {
+                AddReference(dataAccessProject, entityProject);
+            }
+
+            if (coreProject != null && entityProject != null)
+            {
+                AddReference(coreProject, entityProject);
+            }
+        }
+
+
+        private EnvDTE.Project GetProjectByName(EnvDTE.Solution solution, string projectName)
+        {
+            foreach (EnvDTE.Project project in solution.Projects)
+            {
+                if (project.Name.Equals(projectName))
+                {
+                    return project;
+                }
+            }
+            return null;
+        }
+
+        private void AddReference(EnvDTE.Project referencingProject, EnvDTE.Project referencedProject)
+        {
+            // Projeye referans ekleyin
+            var vsProject = referencingProject.Object as VSLangProj.VSProject;
+            if (vsProject != null)
+            {
+                vsProject.References.AddProject(referencedProject);
             }
         }
 
@@ -84,7 +176,7 @@ namespace N_TierSolutionGenerator.Services
 
                 if (layer == "WebAPI")
                 {
-                    _fileCreationService.AddWebApiFiles(projectDir);
+                    _webApiFileCreationService.AddWebApiFiles(projectDir,solutionName);
                 }
 
                 if (layer == "Web")
@@ -94,7 +186,6 @@ namespace N_TierSolutionGenerator.Services
             }
             catch (Exception ex)
             {
-                // Hata mesajını göster
                 VS.MessageBox.ShowErrorAsync("Error", ex.Message);
             }
         }

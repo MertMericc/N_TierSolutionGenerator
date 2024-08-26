@@ -1,18 +1,63 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using {{ProjectName}}.Core.Entities.Concrete;
 
 namespace {{ProjectName}}.DataAccess.Concrete.EntityFramework.Contexts
 {
     public class NorthwindContext:DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=true");
-        }
+     private readonly IConfiguration _configuration;
 
-        public DbSet<OperationClaim> OperationClaims { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-
+    public NorthwindContext(DbContextOptions<NorthwindContext> options, IConfiguration configuration)
+        : base(options)
+    {
+        _configuration = configuration;
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+        }
+    }
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<OperationClaim> OperationClaims { get; set; }
+    public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Seed data: Varsayılan admin kullanıcısı ve roller
+        byte[] passwordHash, passwordSalt;
+        CreatePasswordHash("123", out passwordHash, out passwordSalt);
+
+        modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                FirstName = "Admin",
+                LastName = "User",
+                Email = "admin@admin.com",
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            });
+
+        modelBuilder.Entity<OperationClaim>().HasData(
+            new OperationClaim { Id = 1, Name = "Admin" });
+
+        modelBuilder.Entity<UserOperationClaim>().HasData(
+            new UserOperationClaim { Id = 1, UserId = 1, OperationClaimId = 1 });
+    }
+
+    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+        using (var hmac = new System.Security.Cryptography.HMACSHA512())
+        {
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+    }
+  }
 }

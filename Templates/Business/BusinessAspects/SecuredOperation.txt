@@ -1,9 +1,9 @@
 ﻿using System;
 using {{ProjectName}}Business.Constants;
 using Castle.DynamicProxy;
-using {{ProjectName}}Core.Extensions;
-using {{ProjectName}}Core.Utilities.Interceptors;
-using {{ProjectName}}Core.Utilities.IoC;
+using {{ProjectName}}.Core.Extensions;
+using {{ProjectName}}.Core.Utilities.Interceptors;
+using {{ProjectName}}.Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 

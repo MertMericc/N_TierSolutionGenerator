@@ -13,10 +13,6 @@
             _sharedService = new SharedFileCreationService();
         }
 
-        public void AddWebApiFiles(string projectDir)
-        {
-            _webApiService.AddWebApiFiles(projectDir);
-        }
 
         public void AddMvcFiles(string projectDir)
         {

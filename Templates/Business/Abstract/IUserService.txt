@@ -1,9 +1,13 @@
-﻿namespace {{ProjectName}}.Business.Abstract
+﻿using System.Collections.Generic;
+using {{ProjectName}}.Core.Entities.Concrete;
+
+
+namespace {{ProjectName}}.Business.Abstract
 {
     public interface IUserService
     {
-        User GetUserById(int userId);
+         List<OperationClaim> GetClaims(User user);
         void Add(User user);
-        void Update(User user);
+        User GetByMail(string email);
     }
 }

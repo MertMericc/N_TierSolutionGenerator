@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using {{ProjectName}}.Core.CrossCuttingConcerns.Caching;
 using {{ProjectName}}.Core.Utilities.Interceptors;
 using {{ProjectName}}.Core.Utilities.IoC;

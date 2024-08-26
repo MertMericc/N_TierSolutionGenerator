@@ -19,7 +19,8 @@ namespace N_TierSolutionGenerator.Commands
             var coreFolderService = new CoreFolderService();
             var dataAccessFolderService = new DataAccessFolderService();
             var entityFolderService = new EntityFolderService();
-            _projectCreationService = new ProjectCreationService(businessFolderService, coreFolderService, dataAccessFolderService, entityFolderService);
+            var webApiFileCreationService = new WebApiFileCreationService();
+            _projectCreationService = new ProjectCreationService(businessFolderService, coreFolderService, dataAccessFolderService, entityFolderService, webApiFileCreationService);
         }
 
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)

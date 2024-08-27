@@ -1,12 +1,12 @@
 ﻿{
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=true;"
+    "DefaultConnection": "Server=DESKTOP-LTDGS0Q;Database=Northwind;Integrated Security=True;TrustServerCertificate=True"
   },
   "TokenOptions": {
     "Audience": "yourAudience",
     "Issuer": "yourIssuer",
     "AccessTokenExpiration": 10,
-    "SecurityKey": "yourSuperSecretKey"
+    "SecurityKey": "yourSuperSecretKeyyourSuperSecretKeyyourSuperSecretKey"
   },
   "Logging": {
     "LogLevel": {

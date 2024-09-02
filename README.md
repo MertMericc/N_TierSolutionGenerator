@@ -40,7 +40,7 @@ N-Tier Proje Oluşturucusu'nu kurmak için şu adımları izleyin:
 3. **Çözümü Genişletme**:
    - Yeni varlıklar, hizmetler ve kontrolörler ekleyerek çözümü kolayca genişletebilirsiniz. Önceden yapılandırılmış şablonlar, çözüm genelinde tutarlılığı sağlar.
   
-   - 
+     
  Katkıda Bulunma
 Katkılarınızı bekliyoruz! Eğer iyileştirme önerileriniz varsa veya herhangi bir sorunla karşılaşırsanız, lütfen bir issue açın veya bir pull request gönderin.
 

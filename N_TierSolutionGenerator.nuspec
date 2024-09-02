@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>N_TierSolutionGenerator</id> <!-- Paket adı -->
+    <version>1.0.0</version> <!-- Paket versiyonu -->
+    <authors>Mert Meric Dasdemir</authors> <!-- Yazar adı -->
+    <owners>MertMericc</owners> <!-- Paket sahibi -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance> <!-- Lisans kabulü gerekiyor mu -->
+    <description>N-Tier Solution Generator for Visual Studio</description> <!-- Paket açıklaması -->
+    <releaseNotes>Initial release</releaseNotes> <!-- Sürüm notları -->
+    <tags>vsix extension visual studio</tags> <!-- Anahtar kelimeler -->
+  </metadata>
+  <files>
+    <!-- VSIX dosyasını paketle -->
+    <file src="bin\Release\N_TierSolutionGenerator.vsix" target="tools" />
+  </files>
+</package>

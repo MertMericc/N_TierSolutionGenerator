@@ -6,7 +6,6 @@ namespace N_TierSolutionGenerator.Services
     {
         public void CreateCoreFolders(string coreProjectDir, string projectName)
         {
-            // Core katmanındaki ana klasörleri tanımlıyoruz
             string[] mainFolders = { "Aspects", "CrossCuttingConcerns", "DataAccess", "DependencyResolvers", "Entities", "Extensions", "Utilities","Messages" };
 
             foreach (var folder in mainFolders)
@@ -15,16 +14,13 @@ namespace N_TierSolutionGenerator.Services
                 Directory.CreateDirectory(folderPath);
             }
 
-            // Alt klasörleri oluşturma
             CreateSubFolders(coreProjectDir);
 
-            // Dosyaları oluşturma
             CreateCoreClasses(coreProjectDir, projectName);
         }
 
         private void CreateSubFolders(string coreProjectDir)
         {
-            // Aspects klasör yapısı
             string aspectsDir = Path.Combine(coreProjectDir, "Aspects", "Autofac");
             string[] aspectsSubFolders = { "Caching", "Exception", "Logging", "Performance", "Transaction", "Validation" };
             foreach (var subFolder in aspectsSubFolders)
@@ -32,20 +28,16 @@ namespace N_TierSolutionGenerator.Services
                 Directory.CreateDirectory(Path.Combine(aspectsDir, subFolder));
             }
 
-            // CrossCuttingConcerns klasör yapısı
             string crossCuttingConcernsDir = Path.Combine(coreProjectDir, "CrossCuttingConcerns");
             Directory.CreateDirectory(Path.Combine(crossCuttingConcernsDir, "Caching", "Microsoft"));
             Directory.CreateDirectory(Path.Combine(crossCuttingConcernsDir, "Logging", "Log4Net", "Loggers"));
             Directory.CreateDirectory(Path.Combine(crossCuttingConcernsDir, "Logging", "Log4Net", "Layouts"));
             Directory.CreateDirectory(Path.Combine(crossCuttingConcernsDir, "Validation"));
 
-            // DataAccess klasör yapısı
             Directory.CreateDirectory(Path.Combine(coreProjectDir, "DataAccess", "EntityFramework"));
 
-            // Entities klasör yapısı
             Directory.CreateDirectory(Path.Combine(coreProjectDir, "Entities", "Concrete"));
 
-            // Utilities klasör yapısı
             string[] utilitiesSubFolders = { "Business", "IoC", "Interceptors", "Security/Encryption", "Security/Hashing", "Security/Jwt" ,"Results","Messages"};
             foreach (var subFolder in utilitiesSubFolders)
             {
@@ -57,22 +49,16 @@ namespace N_TierSolutionGenerator.Services
         {
             string templatesDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "Templates", "Core");
 
-            // Aspects klasörü için dosyalar oluşturuluyor
             CreateAspectFiles(coreProjectDir, templatesDir, projectName);
 
-            // CrossCuttingConcerns klasörü için dosyalar oluşturuluyor
             CreateCrossCuttingConcernsFiles(coreProjectDir, templatesDir, projectName);
 
-            // DataAccess klasörü için dosyalar oluşturuluyor
             CreateDataAccessFiles(coreProjectDir, templatesDir, projectName);
 
-            // Entities klasörü için dosyalar oluşturuluyor
             CreateEntitiesFiles(coreProjectDir, templatesDir, projectName);
 
-            // Extensions klasörü için dosyalar oluşturuluyor
             CreateExtensionsFiles(coreProjectDir, templatesDir, projectName);
 
-            // Utilities klasörü için dosyalar oluşturuluyor
             CreateUtilitiesFiles(coreProjectDir, templatesDir, projectName);
         }
 
@@ -80,7 +66,6 @@ namespace N_TierSolutionGenerator.Services
         {
             string aspectsDir = Path.Combine(coreProjectDir, "Aspects", "Autofac");
 
-            // Aspects klasörü (Autofac alt klasöründe)
             WriteClassFromTemplate(Path.Combine(aspectsDir, "Caching", "CacheAspect.cs"), Path.Combine(templatesDir, "Aspects", "Autofac", "Caching", "CacheAspect.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(aspectsDir, "Caching", "CacheRemoveAspect.cs"), Path.Combine(templatesDir, "Aspects", "Autofac", "Caching", "CacheRemoveAspect.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(aspectsDir, "Exception", "ExceptionLogAspect.cs"), Path.Combine(templatesDir, "Aspects", "Autofac", "Exception", "ExceptionLogAspect.txt"), projectName);
@@ -92,52 +77,42 @@ namespace N_TierSolutionGenerator.Services
 
         private void CreateCrossCuttingConcernsFiles(string coreProjectDir, string templatesDir, string projectName)
         {
-            // Caching klasörü (Microsoft alt klasöründe)
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "CrossCuttingConcerns", "Caching", "Microsoft", "MemoryCacheManager.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Caching", "Microsoft", "MemoryCacheManager.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "CrossCuttingConcerns", "Caching", "ICacheManager.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Caching", "ICacheManager.txt"), projectName);
 
-            // Logging klasörü (Log4Net altında)
             string loggingDir = Path.Combine(coreProjectDir, "CrossCuttingConcerns", "Logging");
             string log4NetDir = Path.Combine(loggingDir, "Log4Net");
             string loggersDir = Path.Combine(log4NetDir, "Loggers");
             string layoutsDir = Path.Combine(log4NetDir, "Layouts");
 
-            // Loggers altındaki dosyalar
             WriteClassFromTemplate(Path.Combine(loggersDir, "DatabaseLogger.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "Log4Net", "Loggers", "DatabaseLogger.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(loggersDir, "FileLogger.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "Log4Net", "Loggers", "FileLogger.txt"), projectName);
 
-            // Log4Net klasöründe yer alması gereken dosyalar
             WriteClassFromTemplate(Path.Combine(log4NetDir, "LoggerServiceBase.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "Log4Net", "LoggerServiceBase.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(log4NetDir, "SerializableLogEvent.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "Log4Net", "SerializableLogEvent.txt"), projectName);
 
-            // Layouts altındaki dosya
             WriteClassFromTemplate(Path.Combine(layoutsDir, "JsonLayout.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "Log4Net", "Layouts", "JsonLayout.txt"), projectName);
 
-            // Logging klasörünün geri kalan dosyaları
             WriteClassFromTemplate(Path.Combine(loggingDir, "LogDetail.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "LogDetail.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(loggingDir, "LogDetailWithException.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "LogDetailWithException.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(loggingDir, "LogParameter.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Logging", "LogParameter.txt"), projectName);
 
-            // Validation klasörü
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "CrossCuttingConcerns", "Validation", "ValidationTool.cs"), Path.Combine(templatesDir, "CrossCuttingConcerns", "Validation", "ValidationTool.txt"), projectName);
         }
 
 
         private void CreateDataAccessFiles(string coreProjectDir, string templatesDir, string projectName)
         {
-            // DataAccess klasörü için
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "DataAccess", "EntityFramework", "EfEntityRepositoryBase.cs"), Path.Combine(templatesDir, "DataAccess", "EntityFramework", "EfEntityRepositoryBase.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "DataAccess", "IEntityRepository.cs"), Path.Combine(templatesDir, "DataAccess", "IEntityRepository.txt"), projectName);
         }
 
         private void CreateEntitiesFiles(string coreProjectDir, string templatesDir, string projectName)
         {
-            // Entities klasörü için Concrete altındaki sınıflar
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Entities", "Concrete", "User.cs"), Path.Combine(templatesDir, "Entities", "Concrete", "User.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Entities", "Concrete", "OperationClaim.cs"), Path.Combine(templatesDir, "Entities", "Concrete", "OperationClaim.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Entities", "Concrete", "UserOperationClaim.cs"), Path.Combine(templatesDir, "Entities", "Concrete", "UserOperationClaim.txt"), projectName);
 
-            // Entities klasörü için interface dosyaları
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Entities", "IDto.cs"), Path.Combine(templatesDir, "Entities", "IDto.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Entities", "IEntity.cs"), Path.Combine(templatesDir, "Entities", "IEntity.txt"), projectName);
         }
@@ -145,7 +120,6 @@ namespace N_TierSolutionGenerator.Services
 
         private void CreateExtensionsFiles(string coreProjectDir, string templatesDir, string projectName)
         {
-            // Extensions klasörü için
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Extensions", "ClaimExtensions.cs"), Path.Combine(templatesDir, "Extensions", "ClaimExtensions.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Extensions", "ClaimsPrincipalExtensions.cs"), Path.Combine(templatesDir, "Extensions", "ClaimsPrincipalExtensions.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Extensions", "ErrorDetails.cs"), Path.Combine(templatesDir, "Extensions", "ErrorDetails.txt"), projectName);
@@ -156,7 +130,6 @@ namespace N_TierSolutionGenerator.Services
 
         private void CreateUtilitiesFiles(string coreProjectDir, string templatesDir, string projectName)
         {
-            // Utilities klasörü için
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Business", "BusinessRules.cs"), Path.Combine(templatesDir, "Utilities", "Business", "BusinessRules.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "IoC", "ServiceTool.cs"), Path.Combine(templatesDir, "Utilities", "IoC", "ServiceTool.txt"), projectName); ////////
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "IoC", "ICoreModule.cs"), Path.Combine(templatesDir, "Utilities", "IoC", "ICoreModule.txt"), projectName);
@@ -164,7 +137,6 @@ namespace N_TierSolutionGenerator.Services
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Interceptors", "AspectInterceptorSelector.cs"), Path.Combine(templatesDir, "Utilities", "Interceptors", "AspectInterceptorSelector.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Interceptors", "MethodInterceptionBaseAttribute.cs"), Path.Combine(templatesDir, "Utilities", "Interceptors", "MethodInterceptionBaseAttribute.txt"), projectName);
 
-            // Security klasörü için
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Security", "Encryption", "SecurityKeyHelper.cs"), Path.Combine(templatesDir, "Utilities", "Security", "Encryption", "SecurityKeyHelper.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Security", "Encryption", "SigningCredentialsHelper.cs"), Path.Combine(templatesDir, "Utilities", "Security", "Encryption", "SigningCredentialsHelper.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Security", "Hashing", "HashingHelper.cs"), Path.Combine(templatesDir, "Utilities", "Security", "Hashing", "HashingHelper.txt"), projectName);
@@ -175,7 +147,6 @@ namespace N_TierSolutionGenerator.Services
 
 
 
-            //Results
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Results", "DataResult.cs"), Path.Combine(templatesDir, "Utilities", "Results", "DataResult.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Results", "ErrorDataResult.cs"), Path.Combine(templatesDir, "Utilities", "Results", "ErrorDataResult.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(coreProjectDir, "Utilities", "Results", "ErrorResult.cs"), Path.Combine(templatesDir, "Utilities", "Results", "ErrorResult.txt"), projectName);

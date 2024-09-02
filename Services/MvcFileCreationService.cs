@@ -13,7 +13,6 @@ namespace N_TierSolutionGenerator.Services
 
         private void CreateMvcFolders(string projectDir)
         {
-            // MVC klasör yapısını oluşturma
             Directory.CreateDirectory(Path.Combine(projectDir, "wwwroot"));
             Directory.CreateDirectory(Path.Combine(projectDir, "Controllers"));
             Directory.CreateDirectory(Path.Combine(projectDir, "Models"));
@@ -187,7 +186,6 @@ public class Program
                 File.WriteAllText(programFilePath, programContent);
             }
 
-            // Ayrıca bir Startup sınıfı da oluşturmalısınız
             CreateStartupFile(projectDir);
         }
 

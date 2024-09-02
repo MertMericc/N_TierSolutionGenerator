@@ -146,31 +146,26 @@ namespace N_TierSolutionGenerator.Services
                     string projectContent = GenerateProjectFileContent(layer);
                     File.WriteAllText(projectFile, projectContent);
 
-                    // Projeyi solution'a ekle
                     dte.Solution.AddFromFile(projectFile);
                 }
 
                 if (layer == "Business")
                 {
-                    // Business klasörlerini oluştururken proje adını geçiriyoruz
                     _businessFolderService.CreateBusinessFolders(projectDir, solutionName);
                 }
 
                 if (layer == "Core")
                 {
-                    // Core klasörlerini oluşturuyoruz
                     _coreFolderService.CreateCoreFolders(projectDir, solutionName);
                 }
 
                 if (layer == "DataAccess")
                 {
-                    // DataAccess klasörlerini oluşturuyoruz
                     _dataAccessFolderService.CreateDataAccessFolders(projectDir, solutionName);
                 }
 
                 if (layer == "Entity")
                 {
-                    // Entity klasörlerini oluşturuyoruz
                     _entityFolderService.CreateEntityFolders(projectDir, solutionName);
                 }
 

@@ -39,7 +39,6 @@ namespace N_TierSolutionGenerator.Commands
             string solutionDir = Path.GetDirectoryName(solution.FullName);
             string solutionName = Path.GetFileNameWithoutExtension(solution.FullName);
 
-            // Proje bilgilerini model kullanarak geçiyoruz
             var projectInfo = new ProjectInfo
             {
                 SolutionDir = solutionDir,
@@ -47,7 +46,6 @@ namespace N_TierSolutionGenerator.Commands
                 DTE = dte
             };
 
-            // Projeleri oluşturuyoruz
             _projectCreationService.CreateN_TierProjects(projectInfo);
         }
     }

@@ -6,7 +6,6 @@ namespace N_TierSolutionGenerator.Services
     {
         public void CreateEntityFolders(string entityProjectDir, string projectName)
         {
-            // Entity katmanındaki ana klasörleri tanımlıyoruz
             string[] mainFolders = { "Concrete", "Dtos" };
 
             foreach (var folder in mainFolders)
@@ -15,7 +14,6 @@ namespace N_TierSolutionGenerator.Services
                 Directory.CreateDirectory(folderPath);
             }
 
-            // Dosyaları oluşturma
             CreateEntityClasses(entityProjectDir, projectName);
         }
 
@@ -24,7 +22,6 @@ namespace N_TierSolutionGenerator.Services
             string templatesDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "Templates", "Entity");
 
 
-            // Dtos klasöründeki dosyalar
             WriteClassFromTemplate(Path.Combine(entityProjectDir, "Dtos", "UserForLoginDto.cs"), Path.Combine(templatesDir, "Dtos", "UserForLoginDto.txt"), projectName);
             WriteClassFromTemplate(Path.Combine(entityProjectDir, "Dtos", "UserForRegisterDto.cs"), Path.Combine(templatesDir, "Dtos", "UserForRegisterDto.txt"), projectName);
 

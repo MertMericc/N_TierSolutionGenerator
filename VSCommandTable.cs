@@ -21,6 +21,8 @@ namespace N_TierSolutionGenerator
     internal sealed partial class PackageIds
     {
         public const int MyMenuGroup = 0x0001;
+        public const int ItemNodeGroup = 0x0002;
         public const int MyCommand = 0x0100;
+        public const int GenerateLayersCommand = 0x0200;
     }
 }

@@ -45,13 +45,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\GenerateLayersCommand.cs" />
     <Compile Include="Models\ProjectInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\MyCommand.cs" />
     <Compile Include="N_TierSolutionGeneratorPackage.cs" />
     <Compile Include="Services\BusinessFolderService.cs" />
+    <Compile Include="Services\BusinessService.cs" />
     <Compile Include="Services\CoreFolderService.cs" />
     <Compile Include="Services\DataAccessFolderService.cs" />
+    <Compile Include="Services\DataAccessService.cs" />
+    <Compile Include="Services\EntityDtoService.cs" />
     <Compile Include="Services\EntityFolderService.cs" />
     <Compile Include="Services\FileCreationService.cs" />
     <Compile Include="Services\MvcFileCreationService.cs" />
